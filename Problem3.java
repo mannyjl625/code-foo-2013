@@ -36,12 +36,12 @@ public class Problem3{
 				columns = line.length();
 			}
 		}
-		System.out.println("rows: " + rows);
-		System.out.println("columns: " + columns);
-		System.out.println("words: " + numWords);
+		//System.out.println("rows: " + rows);
+		//System.out.println("columns: " + columns);
+		//System.out.println("words: " + numWords);
 
 		String[] grid = new String[rows];
-		String[] words = new String[numWords-1];
+		String[] words = new String[numWords];
 
 		//places contents of word-search.txt in grid array
 		sc = new Scanner(new File(fileName));
@@ -63,15 +63,23 @@ public class Problem3{
 			}
 			line = sc.nextLine();
 		}
+		//grabs the last line
+		line  = line.toLowerCase();
+		line = line.replaceAll("\\W", "");
+		words[wordIndex] = line;
+
 		//prints word grid and words to search for
 		for(int i = 0; i < grid.length; i++){
 			System.out.println(grid[i]);
 		}
+		//prints word list out
 		for(int i = 0; i < words.length; i++){
-			//System.out.println(words[i]);
+			System.out.println(words[i]);
 		}
-		//System.out.println(words.length);
+		System.out.println("**********************");
+		//for each word in words arrary, go letter by letter looking in 8 directions 	
 		boolean found;
+		int foundWords = 0;
 		for(wordIndex = 0; wordIndex<words.length; wordIndex++){
 			found = false;
 			for(rows = 0; rows<grid.length; rows++){
@@ -88,13 +96,34 @@ public class Problem3{
 						found = true;
 						break;
 					}
+					if(searchDown(rows, columns, words[wordIndex], grid)){
+						found = true;
+						break;
+					}
+					if(searchUpRight(rows, columns, words[wordIndex], grid)){
+						found = true;
+						break;
+					}
+					if(searchDownRight(rows, columns, words[wordIndex], grid)){
+						found = true;
+						break;
+					}
+					if(searchUpLeft(rows, columns, words[wordIndex], grid)){
+						found = true;
+						break;
+					}
+					if(searchDownLeft(rows, columns, words[wordIndex], grid)){
+						found = true;
+						break;
+					}
 				}
 				if(found){
+					foundWords++;
 					break;
 				}
-				//System.out.println(rows);
 			}
 		}
+		System.out.println("words found: " + foundWords);
 	}
 
 	public static boolean searchRight(int row, int column , String word, String[] grid){
@@ -150,6 +179,105 @@ public class Problem3{
 		//System.out.println("test Word: " + testWord);
 		if(word.equals(testWord)){
 			System.out.println("Found " + word + " starting at (row, coloumn) ("+row+", "+column+") going up");
+			return true;
+		}
+		//System.out.println("Did not find " + word);
+		return false;
+	}
+	public static boolean searchDown(int row, int column , String word, String[] grid){
+		int i = row;
+		int j = column;
+		String testWord = "";
+		int nthLetter = 0;
+		//conditions to stay within grid limits and only go as far as the length of word
+		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word.length()){
+			testWord = testWord + grid[i].charAt(j);
+			i++;	//moves up
+			nthLetter++; //how far the search can go
+		}
+		//System.out.println("test Word: " + testWord);
+		if(word.equals(testWord)){
+			System.out.println("Found " + word + " starting at (row, coloumn) ("+row+", "+column+") going down");
+			return true;
+		}
+		//System.out.println("Did not find " + word);
+		return false;
+	}
+	public static boolean searchUpRight(int row, int column , String word, String[] grid){
+		int i = row;
+		int j = column;
+		String testWord = "";
+		int nthLetter = 0;
+		//conditions to stay within grid limits and only go as far as the length of word
+		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word.length()){
+			testWord = testWord + grid[i].charAt(j);
+			i--;	//moves up
+			j++; //moves right
+			nthLetter++; //how far the search can go
+		}
+		//System.out.println("test Word: " + testWord);
+		if(word.equals(testWord)){
+			System.out.println("Found " + word + " starting at (row, coloumn) ("+row+", "+column+") going upright");
+			return true;
+		}
+		//System.out.println("Did not find " + word);
+		return false;
+	}
+	public static boolean searchDownRight(int row, int column , String word, String[] grid){
+		int i = row;
+		int j = column;
+		String testWord = "";
+		int nthLetter = 0;
+		//conditions to stay within grid limits and only go as far as the length of word
+		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word.length()){
+			testWord = testWord + grid[i].charAt(j);
+			i++;	//moves down
+			j++; //moves right
+			nthLetter++; //how far the search can go
+		}
+		//System.out.println("test Word: " + testWord);
+		if(word.equals(testWord)){
+			System.out.println("Found " + word + " starting at (row, coloumn) ("+row+", "+column+") going downright");
+			return true;
+		}
+		//System.out.println("Did not find " + word);
+		return false;
+	}
+	public static boolean searchUpLeft(int row, int column , String word, String[] grid){
+		int i = row;
+		int j = column;
+		String testWord = "";
+		int nthLetter = 0;
+		//conditions to stay within grid limits and only go as far as the length of word
+		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word.length()){
+			testWord = testWord + grid[i].charAt(j);
+			i--;	//moves up
+			j--; //moves left
+			nthLetter++; //how far the search can go
+		}
+		//System.out.println("test Word: " + testWord);
+		if(word.equals(testWord)){
+			System.out.println("Found " + word + " starting at (row, coloumn) ("+row+", "+column+") going upleft");
+			return true;
+		}
+		//System.out.println("Did not find " + word);
+		return false;
+	}
+	public static boolean searchDownLeft(int row, int column , String word, String[] grid){
+		int i = row;
+		int j = column;
+		String testWord = "";
+		int nthLetter = 0;
+		//conditions to stay within grid limits and only go as far as the length of word
+		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word.length()){
+			testWord = testWord + grid[i].charAt(j);
+			i++;	//moves down
+			j--; //moves left
+			nthLetter++; //how far the search can go
+		}
+		//System.out.println("test Word: " + testWord);
+		if(word.equals(testWord)){
+			System.out.println("Found " + word + " starting at (row, coloumn) ("+row+", "+column+") going downleft");
 			return true;
 		}
 		//System.out.println("Did not find " + word);
