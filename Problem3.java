@@ -71,11 +71,19 @@ public class Problem3{
 			System.out.println(words[i]);
 		}
 		//System.out.println(words.length);
-		System.out.println(searchRight(17, 2, "mushroom", grid));
+		boolean found
+		for(wordIndex = 0; wordIndex <
+			for(rows = 0; rows<grid.length; rows++){
+				for(columns = 0; columns<grid[0].length(); columns++){
+						
+						//System.out.println(wordIndex);
+				
+				}
+				//System.out.println(rows);
+			}
 	}
 
-	public static String searchRight(int row, int column , String word, String[] grid){
-		int[] location = new int[2];
+	public static boolean searchRight(int row, int column , String word, String[] grid){
 		int i = row;
 		int j = column;
 		String testWord = "";
@@ -86,11 +94,13 @@ public class Problem3{
 			j++;	//moves right
 			nthLetter++; //how far the search can go
 		}
-		System.out.println("test Word: " + testWord);
+		//System.out.println("test Word: " + testWord);
 		if(word.equals(testWord)){
-			return "TRUE";
+			//System.out.println("Found " + word + " starting at row: "+row+" column: " + column + " going right");
+			return true;
 		}
-		return "FALSE";
+		//System.out.println("Did not find " + word);
+		return false;
 
 	}
 
