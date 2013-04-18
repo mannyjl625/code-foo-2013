@@ -19,13 +19,15 @@ public class Problem3{
 			word = sc.nextLine();
 			list.add(word);
 		}
-
+		String start;
+		String end;
 		//takes in user input, rejects invalid words
 		do{
 			System.out.println("Enter starting three letter word \n");
 			Scanner input = new Scanner(System.in);
-			word = input.nextLine();
-			if(list.contains(word.toUpperCase())){
+			start = input.nextLine();
+			start = start.toUpperCase();
+			if(list.contains(start)){
 				break;
 			}
 			System.out.println("word is not in list. try again");
@@ -34,14 +36,33 @@ public class Problem3{
 		do{
 			System.out.println("Enter ending three letter word \n");
 			Scanner input = new Scanner(System.in);
-			word = input.nextLine();
-			if(list.contains(word.toUpperCase())){
+			end = input.nextLine();
+			end = end.toUpperCase();
+			if(list.contains(end)){
 				break;
 			}
 			System.out.println("word is not in list. try again");
 
 		}while(true);
 		//System.out.println(list);
+		
+		//System.out.println(replaceLeft(start,end));
+		//System.out.println(replaceMid(start,end));
+		//System.out.println(replaceRight(start,end));
+		int numMoves =0;
+		String moves = start;
+		while(){
+			
+		}
 
+	}
+	public static String replaceLeft(String start, String end){
+		return end.charAt(0) + start.substring(1);
+	}
+	public static String replaceMid(String start, String end){
+		return start.substring(0, 1) + end.charAt(1) +  start.charAt(2);
+	}
+	public static String replaceRight(String start, String end){
+		return start.substring(0, 2) + end.charAt(2);
 	}
 }
