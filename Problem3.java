@@ -51,9 +51,29 @@ public class Problem3{
 		//System.out.println(replaceRight(start,end));
 		int numMoves =0;
 		String moves = start;
-		while(){
-			
+		String change1;
+		String change2;
+		String change3;
+		ArrayList<String> spareWords = new ArrayList();
+		while(!moves.equals(end)){
+			change1 = replaceLeft(moves, end);
+			change2 = replaceMid(moves, end);
+			change3 = replaceRight(moves, end);
+			if(moves.charAt(0)!= end.charAt(0) && list.contains(change1)){
+				System.out.println(change1);
+				numMoves++;
+				moves = change1;
+			}else if(moves.charAt(1)!=end.charAt(1) && list.contains(change2)){
+				System.out.println(change2);
+				numMoves++;
+				moves = change2;
+			}else if(moves.charAt(2)!=end.charAt(2) && list.contains(change3)){
+				System.out.println(change3);
+				numMoves++;
+				moves = change3;
+			}
 		}
+		System.out.println("Number of moves: " + numMoves);
 
 	}
 	public static String replaceLeft(String start, String end){
