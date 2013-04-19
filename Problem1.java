@@ -3,17 +3,17 @@
 public class Problem1{
 	public static void main(String[] args){
 	//mergesort
-	//
-
-	
-		
 	}
-	public static int[] mergeSort(int[] ){
-		
+	public static int[] mergeSort(int[] list){
+		if(list.length<=1){
+			return 
+		}
 
 	}
 
-	public static int[] merge(left, right)
+	public static int[] merge(left, right){
+
+	}
 }
 
 
