@@ -54,7 +54,7 @@ public class Problem3{
 		String change1;
 		String change2;
 		String change3;
-		ArrayList<String> spareWords = new ArrayList();
+		//generates 3 moves, 1 for each character, and picks the first valid move until end word is met 
 		while(!moves.equals(end)){
 			change1 = replaceLeft(moves, end);
 			change2 = replaceMid(moves, end);
