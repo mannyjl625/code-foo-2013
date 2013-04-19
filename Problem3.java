@@ -76,6 +76,7 @@ public class Problem3{
 		System.out.println("Number of moves: " + numMoves);
 
 	}
+	//methods that take in word, replace one letter with second words letter 
 	public static String replaceLeft(String start, String end){
 		return end.charAt(0) + start.substring(1);
 	}

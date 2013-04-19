@@ -54,8 +54,6 @@ public class Wordsearch{
 		while(sc.hasNext()){
 			line = sc.nextLine();
 			if(line.length()>0 && !line.equals("Words to find:")){
-				//line  = line.toLowerCase();
-				//ine = line.replaceAll("\\W", "");
 				words[wordIndex] = line;
 				wordIndex++;
 			}
@@ -84,26 +82,19 @@ public class Wordsearch{
 				for(columns = 0; columns<grid[0].length(); columns++){	
 					if(searchRight(rows, columns, words[wordIndex], grid)){
 						found = true;
-					}
-					if(searchLeft(rows, columns, words[wordIndex], grid)){
+					}else if(searchLeft(rows, columns, words[wordIndex], grid)){
 						found = true;
-					}
-					if(searchUp(rows, columns, words[wordIndex], grid)){
+					}else if(searchUp(rows, columns, words[wordIndex], grid)){
 						found = true;
-					}
-					if(searchDown(rows, columns, words[wordIndex], grid)){
+					}else if(searchDown(rows, columns, words[wordIndex], grid)){
 						found = true;
-					}
-					if(searchUpRight(rows, columns, words[wordIndex], grid)){
+					}else if(searchUpRight(rows, columns, words[wordIndex], grid)){
 						found = true;
-					}
-					if(searchDownRight(rows, columns, words[wordIndex], grid)){
+					}else if(searchDownRight(rows, columns, words[wordIndex], grid)){
 						found = true;
-					}
-					if(searchUpLeft(rows, columns, words[wordIndex], grid)){
+					}else if(searchUpLeft(rows, columns, words[wordIndex], grid)){
 						found = true;
-					}
-					if(searchDownLeft(rows, columns, words[wordIndex], grid)){
+					}else if(searchDownLeft(rows, columns, words[wordIndex], grid)){
 						found = true;
 					}
 					if(found){
