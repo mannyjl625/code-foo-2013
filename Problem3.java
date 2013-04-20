@@ -79,8 +79,8 @@ public class Problem3{
 		}while(true);
 		
 		//make graph
-		ThreeLetterWord startWord;
-		ThreeLetterWord endWord;
+		ThreeLetterWord startWord = null;
+		ThreeLetterWord endWord = null;
 
 		for(int i = 0; i<list.size(); i++){
 			ThreeLetterWord currentWord = list.get(i);
@@ -132,45 +132,11 @@ public class Problem3{
 		for(int j = 0; j < w.moves.size(); j++){
 			System.out.println(w.moves.get(j).word);
 		}
-	
-		
-
-
-
-		//System.out.println(list);
-		
-		//System.out.println(replaceLeft(start,end));
-		//System.out.println(replaceMid(start,end));
-		//System.out.println(replaceRight(start,end));
-		/*
-		int numMoves =0;
-		String moves = start;
-		String change1;
-		String change2;
-		String change3;
-		//generates 3 moves, 1 for each character, and picks the first valid move until end word is met 
-		while(!moves.equals(end)){
-			change1 = replaceLeft(moves, end);
-			change2 = replaceMid(moves, end);
-			change3 = replaceRight(moves, end);
-			if(moves.charAt(0)!= end.charAt(0) && list.contains(change1)){
-				System.out.println(change1);
-				numMoves++;
-				moves = change1;
-			}else if(moves.charAt(1)!=end.charAt(1) && list.contains(change2)){
-				System.out.println(change2);
-				numMoves++;
-				moves = change2;
-			}else if(moves.charAt(2)!=end.charAt(2) && list.contains(change3)){
-				System.out.println(change3);
-				numMoves++;
-				moves = change3;
-			}
-		}
-		System.out.println("Number of moves: " + numMoves);
-		*/
+		System.out.println("");
+		System.out.println("Start word: " + startWord.word);
+		System.out.println("end word: " + endWord.word);
 	}
-	//methods that take in word, replace one letter with second words letter 
+	//method that take in word, replace one letter with second words letter 
 	public static String replace(String start, String end, char section){
 		if(section=='l'){
 			return end.charAt(0) + start.substring(1);
