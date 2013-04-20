@@ -1,4 +1,4 @@
-package friendsfsdf
+package friend
 
 import java.util.*;
 import java.lang.*;

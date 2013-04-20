@@ -2,9 +2,24 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
+class ThreeLetterWord{
+	String word;
+	ArrayList<ThreeLetterWord> moves;
+	
+	public ThreeLetterWord(){
+		this.moves = new ArrayList<ThreeLetterWord>();
+	}
+	
+	public ThreeLetterWord(String word){
+		this.word = word;
+		this.moves = new ArrayList<ThreeLetterWord>();
+	}
+}
+
+
 public class Problem3{
 	public static void main(String[] args) throws FileNotFoundException{
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<ThreeLetterWord> list = new ArrayList<ThreeLetterWord>();
 		String fileName = "three-letter-words.txt";
 		Scanner sc;
 		//throws error if 'three-letter-words.txt' isnt in directory
@@ -15,10 +30,13 @@ public class Problem3{
 			return;
 		}
 		String word;
+		//makes list of word objects
 		while(sc.hasNext()){
 			word = sc.nextLine();
-			list.add(word);
+			ThreeLetterWord w = new ThreeLetterWord(word);
+			list.add(w);
 		}
+		list.trimToSize();
 		String start;
 		String end;
 		//takes in user input, rejects invalid words
@@ -44,11 +62,25 @@ public class Problem3{
 			System.out.println("word is not in list. try again");
 
 		}while(true);
+		
+		//make graph
+		ThreeLetterWord startWord;
+		ThreeLetterWord endWord;
+		for(int i = 0; i<list.size(); i++){
+			
+			for(int j = 0; j<list.size(); j++){
+						
+
+			}
+		}
+
+
 		//System.out.println(list);
 		
 		//System.out.println(replaceLeft(start,end));
 		//System.out.println(replaceMid(start,end));
 		//System.out.println(replaceRight(start,end));
+		/*
 		int numMoves =0;
 		String moves = start;
 		String change1;
@@ -74,7 +106,7 @@ public class Problem3{
 			}
 		}
 		System.out.println("Number of moves: " + numMoves);
-
+		*/
 	}
 	//methods that take in word, replace one letter with second words letter 
 	public static String replaceLeft(String start, String end){
