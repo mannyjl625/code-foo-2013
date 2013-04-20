@@ -6,7 +6,7 @@ public class Problem1{
 	}
 	public static int[] mergeSort(int[] list){
 		if(list.length<=1){
-			return 
+			return list;
 		}
 
 	}
