@@ -83,46 +83,6 @@ class Queue<T> {
 	}
 }
 
-/*
-class Stack<T> {
-
-	private ArrayList<T> items;
-
-	public Stack() {
-		items = new ArrayList<T>();
-	}
-
-	public void push(T item) {
-		items.add(item);
-	}
-	public T pop()
-	throws NoSuchElementException {
-		if (items.isEmpty()) {
-			throw new NoSuchElementException("can't pop from an empty stack");
-		}
-		return items.remove(items.size()-1);
-	}
-
-	public T peek() throws NoSuchElementException {
-		if (items.size() == 0) {
-			throw new NoSuchElementException("can't peek into an empty stack");
-		}
-		return items.get(items.size()-1);
-	}
-
-	public boolean isEmpty() {
-		return items.isEmpty();
-	}
-
-	public int size() {
-		return items.size();
-	}
-
-	public void clear() {
-		items.clear();
-	}
-}
-*/
 public class Problem3{
 	public static void main(String[] args) throws FileNotFoundException{
 		ArrayList<ThreeLetterWord> list = new ArrayList<ThreeLetterWord>();
@@ -230,6 +190,7 @@ public class Problem3{
 			}	
 		}
 		//prints all moves for a certain word
+		/*
 		ThreeLetterWord w = list.get(60);
 		System.out.println(w.word);
 		System.out.println("***************");
@@ -240,6 +201,7 @@ public class Problem3{
 		System.out.println("Start word: " + startWord.word);
 		System.out.println("end word: " + endWord.word);
 
+		*/
 		//Starting graph traversal with bfs
 		
 		Queue<ThreeLetterWord> q = new Queue<ThreeLetterWord>();
@@ -248,44 +210,24 @@ public class Problem3{
 		int moves = 0;
 		while(!q.isEmpty()){
 			ThreeLetterWord searchWord = q.dequeue();
-			if(searchWord.word.equals(endWord.word)){
-				//System.out.println(moves + " moves");
-				System.out.println("found endword " + endWord.steps);
+			if(searchWord.word.equals(endWord.word)){//
+				searchWord.stepWords.add(searchWord.word);
+				System.out.println("path: " + searchWord.stepWords);
+				System.out.println("Moves: " + endWord.steps);
 				return;
 			}
 			for(int i = 0; i<searchWord.moves.size(); i++){
 				ThreeLetterWord link = searchWord.moves.get(i);
 				if(!link.found){
 					link.steps = searchWord.steps+1;
+					copyHistory(link, searchWord);
+					link.stepWords.add(searchWord.word);
 					link.found = true;
 					q.enqueue(link);
 				}
-			}
-			
+			}			
 		}
-		
-		/*
-		Stack<ThreeLetterWord> s = new Stack<ThreeLetterWord>();
-		startWord.found = true;
-		s.push(startWord);
-		int moves = 0;
-		while(!s.isEmpty()){
-			ThreeLetterWord searchWord = s.peek();
-			if(searchWord.word.equals(endWord.word)){
-				System.out.println("moves: " + moves);
-				return;
-			}
-			ThreeLetterWord link = getUnvisitedWord(searchWord);
-			if(link==null){
-				s.pop();
-				moves--;
-			}else{
-				link.found = true;
-				s.push(link);
-				moves++;
-			}
-		}*/
-
+		System.out.println("no valid move path between " + start + " and " + end);  
 	}
 	//method that take in word, replace one letter with second words letter 
 	public static ThreeLetterWord getUnvisitedWord(ThreeLetterWord word){
@@ -297,6 +239,12 @@ public class Problem3{
 		return null;
 
 
+	}
+	//copys steps history of word2 into word1
+	public static void copyHistory(ThreeLetterWord word1, ThreeLetterWord word2){
+		for(int i = 0 ; i<word2.stepWords.size(); i++){
+			word1.stepWords.add(word2.stepWords.get(i));
+		}
 	}
 	
 	public static String replace(String start, String end, char section){
