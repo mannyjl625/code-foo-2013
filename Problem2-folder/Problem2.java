@@ -32,7 +32,7 @@ public class Problem2{
 			System.out.println("file not found");
 			return;
 		}
-
+		//reads all scores from Score.txt into ArrayList
 		while(sc.hasNext()){
 			word = sc.nextLine();
 			word = word.trim();
@@ -41,15 +41,22 @@ public class Problem2{
 			HighScore score = new HighScore(points, name);
 			scoreList.add(score);
 		}
+		scoreList.trimToSize();
 		HighScore[] scoreList2 = new HighScore[1]; // convert ArrayList to array;
 		scoreList2 = scoreList.toArray(scoreList2);
+		
 		/*
+		System.out.println("Unordered List");
 		for(int i = 0; i<scoreList2.length; i++){
-			System.out.println(scoreList2[i].points + " " + scoreList2[i].name);
-		}*/
-		merge_sort(scoreList2);
-
-
+			System.out.println("Score: " + scoreList2[i].points + "Name: " + scoreList2[i].name);
+		}
+		*/
+		
+		HighScore[] orderedList = merge_sort(scoreList2);
+		System.out.println("High Scores");
+		for(int i = 0; i<orderedList.length; i++){
+			System.out.println((i+1) + ". " + orderedList[i].points + " " + orderedList[i].name);
+		}
 	}
 	public static HighScore[] merge_sort(HighScore[] scores){
 		if(scores.length<=1){
@@ -68,20 +75,42 @@ public class Problem2{
 			}
 		}
 		
-		for(int i = 0; i<left.length; i++){
-			//System.out.println(left[i].points + " " + left[i].name);
-		}
-		///System.out.println("*****************");
-		for(int i = 0; i<right.length; i++){
-			//System.out.println(right[i].points + " " + right[i].name);
-		}
 		left  = merge_sort(left);
 		right = merge_sort(right);
 		return merge(left, right);
 	}
 
 	public static HighScore[] merge(HighScore[] left, HighScore[] right){
+		HighScore[] combo = new HighScore[left.length + right.length];
+		int indexL = 0;
+		int indexR = 0;
+		while(indexL < left.length || indexR < right.length){
+			if(indexL<left.length && indexR<right.length){
+				if(left[indexL].points > right[indexR].points){
+					combo[indexL+indexR] = left[indexL];
+					indexL++;
+				}else if(left[indexL].points < right[indexR].points){
+					combo[indexL+indexR] = right[indexR];
+					indexR++;
+				}else{
+					if(left[indexL].name.compareToIgnoreCase(right[indexR].name) <= 0){
+						combo[indexL+indexR] = left[indexL];
+						indexL++;
+					}else{
+						combo[indexL+indexR] = right[indexR];
+						indexR++;
+					}
+				}
+			}else if(indexL<left.length){
+				combo[indexL+indexR] = left[indexL];
+				indexL++;
+			}else if(indexR<right.length){
+				combo[indexL+indexR] = right[indexR];
+				indexR++;
+			}	
+		}	
 		
+		return combo;
 	}
 }
 
