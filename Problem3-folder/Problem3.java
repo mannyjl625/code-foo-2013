@@ -85,7 +85,8 @@ class Queue<T> {
 }
 
 public class Problem3{
-	public static void main(String[] args) throws FileNotFoundException{
+	public static void main(String[] args) 
+	throws FileNotFoundException{
 		ArrayList<ThreeLetterWord> list = new ArrayList<ThreeLetterWord>();
 		String fileName = "three-letter-words.txt";
 		Scanner sc;
