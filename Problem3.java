@@ -1,13 +1,15 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
+//eff+tae = 4
 
+//helper ThreeLetter Word object
 class ThreeLetterWord{
-	String word;
-	boolean found;
-	int steps;
-	ArrayList<String> stepWords;
-	ArrayList<ThreeLetterWord> moves;
+	String word;   //the word it represents(UpperCase)
+	boolean found; // whether it has been visited(for bfs)
+	int steps;     // number of steps the word is away from start
+	ArrayList<String> stepWords;  //words visited along the way from start
+	ArrayList<ThreeLetterWord> moves;  //all other words adjacent by one 'move'
 	
 	public ThreeLetterWord(){
 		this.word = "";
@@ -26,7 +28,7 @@ class ThreeLetterWord{
 		this.moves = new ArrayList<ThreeLetterWord>();
 	}
 }
-
+//generic Queue structure
 class Queue<T> {
 	
 	class CLLNode<E> {
@@ -103,9 +105,6 @@ public class Problem3{
 			list.add(w);
 		}
 		list.trimToSize();
-		for(int i = 0; i<list.size(); i++){
-			//System.out.println(list.get(i).word);
-		}
 		String start;
 		String end;
 		//takes in user input, rejects invalid words
@@ -115,6 +114,7 @@ public class Problem3{
 			start = input.nextLine();
 			start = start.toUpperCase();
 			boolean found = false;
+			//checks if user input is in the list of words
 			for(int i = 0; i<list.size(); i++){
 				if(list.get(i).word.equals(start)){
 					found = true;
@@ -132,6 +132,7 @@ public class Problem3{
 			end = input.nextLine();
 			end = end.toUpperCase();
 			boolean found = false;
+			//checks if user input is in the list of words
 			for(int i = 0; i<list.size(); i++){
 				if(list.get(i).word.equals(end)){
 					found = true;
@@ -143,25 +144,33 @@ public class Problem3{
 			}
 			System.out.println("word is not in list. try again");
 		}while(true);
-		
-		//make graph
+		//skip making graph if start and end match
+		if(start.equals(end)){
+			System.out.println("Moves: 0");
+			return;
+		}
+
+		//Make graph of one-move connections. Makes pointes to start and end words
 		ThreeLetterWord startWord = null;
 		ThreeLetterWord endWord = null;
 
 		for(int i = 0; i<list.size(); i++){
 			ThreeLetterWord currentWord = list.get(i);
+			//makes pointers to start and end words
 			if(start.equals(currentWord.word)){
 				startWord = currentWord;
 			}
 			if(end.equals(currentWord.word)){
 				endWord = currentWord;
 			}
+			//for each word, check every other word to see if they are linked by one move
+			
 			for(int j = 0; j<list.size(); j++){
 				ThreeLetterWord moveWord = list.get(j);
 				if(moveWord.word.equals(currentWord.word)){
 					continue;
 				}
-
+				//change current word towards end word by one move, add to movelist if equal
 				if(currentWord.word.charAt(0)!=moveWord.word.charAt(0)){
 					String change1 = replace(currentWord.word, moveWord.word, 'l');
 					if(change1.equals(moveWord.word)){
@@ -182,6 +191,8 @@ public class Problem3{
 			}
 			currentWord.moves.trimToSize();
 		}
+		/*
+		Debuggin print statments
 		//prints all links
 		for(int i = 0; i < list.size(); i++){
 			ThreeLetterWord w = list.get(i);
@@ -190,8 +201,7 @@ public class Problem3{
 			}	
 		}
 		//prints all moves for a certain word
-		/*
-		ThreeLetterWord w = list.get(60);
+		ThreeLetterWord w = list.get(0);
 		System.out.println(w.word);
 		System.out.println("***************");
 		for(int j = 0; j < w.moves.size(); j++){
@@ -202,24 +212,27 @@ public class Problem3{
 		System.out.println("end word: " + endWord.word);
 
 		*/
-		//Starting graph traversal with bfs
-		
+
+		//Breadth first search starting at start word, looking for endword
+		//keeping track of moves from start and path of words taked
 		Queue<ThreeLetterWord> q = new Queue<ThreeLetterWord>();
 		q.enqueue(startWord);
 		startWord.found = true;
 		int moves = 0;
 		while(!q.isEmpty()){
+			
 			ThreeLetterWord searchWord = q.dequeue();
-			if(searchWord.word.equals(endWord.word)){//
-				searchWord.stepWords.add(searchWord.word);
-				System.out.println("path: " + searchWord.stepWords);
+			//if searchword matches endword, print moves and path. end
+			if(searchWord.word.equals(endWord.word)){
+				searchWord.stepWords.add(searchWord.word); //tac on end word to path of words traveled
+				System.out.println("Path: " + searchWord.stepWords);
 				System.out.println("Moves: " + endWord.steps);
 				return;
 			}
 			for(int i = 0; i<searchWord.moves.size(); i++){
 				ThreeLetterWord link = searchWord.moves.get(i);
 				if(!link.found){
-					link.steps = searchWord.steps+1;
+					link.steps = searchWord.steps+1; //keeps track of nubmer of steps taken to each word from start word
 					copyHistory(link, searchWord);
 					link.stepWords.add(searchWord.word);
 					link.found = true;
@@ -227,9 +240,12 @@ public class Problem3{
 				}
 			}			
 		}
-		System.out.println("no valid move path between " + start + " and " + end);  
+		System.out.println("No valid move path between " + start + " and " + end);  
 	}
-	//method that take in word, replace one letter with second words letter 
+	/*
+	 *returns first one-move linked word from the arguement word that hasnt been visited
+	 *takes in ThreeLetterWord, returns first ThreeLetter word link
+	*/
 	public static ThreeLetterWord getUnvisitedWord(ThreeLetterWord word){
 		for(int i = 0; i<word.moves.size(); i++){
 			if(!word.moves.get(i).found){
@@ -240,13 +256,19 @@ public class Problem3{
 
 
 	}
-	//copys steps history of word2 into word1
+	/*
+	 * copys words tranversed  history of word2 into word1 stepWords ArrayList
+	*/
 	public static void copyHistory(ThreeLetterWord word1, ThreeLetterWord word2){
 		for(int i = 0 ; i<word2.stepWords.size(); i++){
 			word1.stepWords.add(word2.stepWords.get(i));
 		}
 	}
-	
+	/*
+	generates 3 moves, one for each charater, from the start word to end word
+	input:start String, end String, character to speficty which move to make(left, middle, or right characters)
+	returns new string, or "" if invalid section character was passed in
+	*/
 	public static String replace(String start, String end, char section){
 		if(section=='l'){
 			return end.charAt(0) + start.substring(1);
