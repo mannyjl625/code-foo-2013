@@ -3,17 +3,17 @@ import java.lang.*;
 import java.io.*;
 
 class HighScore{
-	float points;
+	float score;
 	String name;
 
 	public HighScore(){
-		this.points = 0;
+		this.score = 0;
 		this.name = null;
 
 	}
 
-	public HighScore(float points, String name){
-		this.points = points;
+	public HighScore(float score, String name){
+		this.score = score;
 		this.name = name;
 	}
 
@@ -36,10 +36,10 @@ public class Problem2{
 		while(sc.hasNext()){
 			word = sc.nextLine();
 			word = word.trim();
-			float points = Integer.parseInt(word.substring(0, word.indexOf(' ')));
+			float score = Integer.parseInt(word.substring(0, word.indexOf(' ')));
 			String name = word.substring(word.indexOf(' '), word.length());
-			HighScore score = new HighScore(points, name);
-			scoreList.add(score);
+			HighScore userScore = new HighScore(score, name);
+			scoreList.add(userScore);
 		}
 		scoreList.trimToSize();
 		HighScore[] scoreList2 = new HighScore[1]; // convert ArrayList to array;
@@ -48,14 +48,14 @@ public class Problem2{
 		/*
 		System.out.println("Unordered List");
 		for(int i = 0; i<scoreList2.length; i++){
-			System.out.println("Score: " + scoreList2[i].points + "Name: " + scoreList2[i].name);
+			System.out.println("Score: " + scoreList2[i].score + "Name: " + scoreList2[i].name);
 		}
 		*/
 		
 		HighScore[] orderedList = merge_sort(scoreList2);
 		System.out.println("High Scores");
 		for(int i = 0; i<orderedList.length; i++){
-			System.out.println((i+1) + ". " + orderedList[i].points + " " + orderedList[i].name);
+			System.out.println((i+1) + ". " + orderedList[i].score + " " + orderedList[i].name);
 		}
 	}
 	public static HighScore[] merge_sort(HighScore[] scores){
@@ -86,10 +86,10 @@ public class Problem2{
 		int indexR = 0;
 		while(indexL < left.length || indexR < right.length){
 			if(indexL<left.length && indexR<right.length){
-				if(left[indexL].points > right[indexR].points){
+				if(left[indexL].score > right[indexR].score){
 					combo[indexL+indexR] = left[indexL];
 					indexL++;
-				}else if(left[indexL].points < right[indexR].points){
+				}else if(left[indexL].score < right[indexR].score){
 					combo[indexL+indexR] = right[indexR];
 					indexR++;
 				}else{
