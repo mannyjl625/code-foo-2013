@@ -1,13 +1,6 @@
-public class Problem2{
-	public static void main(String[] args){
-	//mergesort
-	//
-
-	
-		
-	}
-}
-
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
 class HighScore{
 	float score;
@@ -25,3 +18,14 @@ class HighScore{
 	}
 
 }
+public class Problem2{
+	public static void main(String[] args){
+	//mergesort
+	
+
+	
+		
+	}
+}
+
+

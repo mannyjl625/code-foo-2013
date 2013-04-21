@@ -1,7 +1,6 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-//eff+tae = 4
 
 //helper ThreeLetter Word object
 class ThreeLetterWord{
