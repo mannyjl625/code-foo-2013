@@ -17,4 +17,17 @@ java Wordsearch
 Input
 -----
 
-For
+For the wordsearch text file being passed in, the file must match the 
+sample 'wordsearch.txt' in terms of format
+
+`````
+a	b	c
+
+d	e	f
+
+g	h 	i
+
+Words to find:
+
+hi
+```
