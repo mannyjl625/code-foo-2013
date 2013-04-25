@@ -3,12 +3,15 @@ Problem 5 README
 
 To compile program for running:
 
+````
 javac Problem5.java
+```
 
 To run:
 
+````
 java Problem5
-
+````
 
 Efficiency Analysis
 ------------------
