@@ -16,7 +16,7 @@ class Person{
 	}
 
 	public Person(String name){
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.visited = false;
 		this.generation = 0;
 		this.children = new  ArrayList<Person>();
@@ -105,7 +105,7 @@ public class Problem1{
 		
 		//gen 3
 		Person manny = new Person("manny");
-		Person veronica = new Person("veronica");
+		Person may2 = new Person("may");
 
 		Person tito = new Person("tito");
 		Person diego = new Person("diego");
@@ -117,7 +117,8 @@ public class Problem1{
 		//gen 0 relations
 		root.children.add(blanca);
 		root.children.add(eguardo);
-
+		root.children.add(may);
+		root.children.add(jake);
 		//gen 1 relations
 		blanca.children.add(wilfredo);
 		blanca.children.add(mimi);
@@ -128,8 +129,9 @@ public class Problem1{
 		eguardo.children = blanca.children;
 
 		may.children.add(tony);
-		may.children.add(lyn);
 		may.children.add(denise);
+		may.children.add(lyn);
+		may.children.add(piggie);
 		jake.children = may.children;
 
 		//gen 2 relations
@@ -144,43 +146,91 @@ public class Problem1{
 		piggie.children = lyn.children;
 
 		denise.children.add(manny);
-		denise.children.add(veronica);
+		denise.children.add(may2);
 		tony.children = denise.children;
-		/*
-		Queue<ThreeLetterWord> q = new Queue<ThreeLetterWord>();
-		q.enqueue(startWord);
-		startWord.found = true;
-		int moves = 0;
-		while(!q.isEmpty()){
 			
-			ThreeLetterWord searchWord = q.dequeue();
-			//if searchword matches endword, print moves and path. end
-			if(searchWord.word.equals(endWord.word)){
-				searchWord.stepWords.add(searchWord.word); //tac on end word to path of words traveled
-				System.out.println("Path: " + searchWord.stepWords);
-				System.out.println("Moves: " + endWord.steps);
-				return;
+		Scanner sc;
+		String option = "";
+		String name = "";
+		int genNum = 0;
+		while(true){
+			System.out.println("1: search by name");
+			System.out.println("2: search by generation");
+			System.out.println("3: search by name and generation");
+			sc = new Scanner(System.in);
+			option = sc.nextLine();
+			if(option.equals("1")){
+				System.out.println("enter name");
+				sc =  new Scanner(System.in);
+				name = sc.nextLine().toLowerCase();
+				break;
+			}else if(option.equals("2")){
+				System.out.println("enter generation");
+				sc = new Scanner(System.in);
+				genNum = sc.nextInt();
+				break;
+			}else if(option.equals("3")){
+				System.out.println("enter name");
+				sc = new Scanner(System.in);
+				name = sc.nextLine().toLowerCase();
+				
+				System.out.println("enter generation");
+				sc = new Scanner(System.in);
+				genNum = sc.nextInt();
+				break;
+
+			}else{
+				System.out.println("Not a valid option. Pick option 1-3");
+				System.out.println("");
 			}
-			for(int i = 0; i<searchWord.moves.size(); i++){
-				ThreeLetterWord link = searchWord.moves.get(i);
-				if(!link.found){
-					link.steps = searchWord.steps+1; //keeps track of nubmer of steps taken to each word from start word
-					copyHistory(link, searchWord);
-					link.stepWords.add(searchWord.word);
-					link.found = true;
-					q.enqueue(link);
+		}
+		//System.out.println(name);
+		//System.out.println(genNum);
+
+
+		ArrayList<Person> results = new ArrayList<Person>();
+		Queue<Person> q = new Queue<Person>();
+		q.enqueue(root);
+		root.visited = true;
+		while(!q.isEmpty()){
+			Person ancestor = q.dequeue();
+			if(option.equals("1") && ancestor.name.equals(name)){
+				results.add(ancestor);
+			}else if(option.equals("2") && ancestor.generation == genNum){
+				results.add(ancestor);
+			}else if(option.equals("3") && ancestor.name.equals(name) && ancestor.generation == genNum){
+				results.add(ancestor);
+			}
+
+			for(int i = 0; i<ancestor.children.size(); i++){
+				Person relative = ancestor.children.get(i);
+				if(!relative.visited){
+					relative.generation = ancestor.generation+1; //keeps track of nubmer of steps taken to each word from start word
+					relative.visited = true;
+					q.enqueue(relative);
 				}
 			}			
 		}
-		*/
-		
-	}	
-	public static Person getUnvisitedChild(Person parent){
-		if(parent.children.isEmpty()){
-			return null;
+
+
+		if(results.isEmpty()){
+			System.out.println("No results found in the family tree");
+		}else{
+			if(option.equals("1")){
+				System.out.println("Family members with the name "+name);
+			}else if (option.equals("2")){
+				System.out.println("Family members of the " + genNum + " generation");
+			}else if(option.equals("3")){
+				System.out.println("Family members with the name  " +  name + " and of the " + genNum + " generation");  
+			}
+
+
+			for(int i = 0; i<results.size(); i++){
+				System.out.println("name: " + results.get(i).name  + " /genertaion: " +results.get(i).generation);
+			}
 		}
-		return null;
+
+
 	}
-		
 
 }
