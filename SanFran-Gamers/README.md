@@ -77,7 +77,30 @@ Step 3: Considering Unique Factors and Industry Trends
 Keeping in mind that there may be more than the average number of 
 Bay Area gamers due to the above average household income. I 
 considered the areas unique role in the industry as well as changes 
-in the industry since the gamer survey was taken in 2009.
+in the industry since the gamer survey was taken in 2009. 
+
+One of the most significant happenings in the games industry is the 
+explosive rise of mobile gaming. While hard numbers on how much 
+mobile gaming has grown since 2009 are hard to come by, super
+populate mobile games such as the angyr birds series and cut the rope 
+indicate that the amount of people playing mobile games is on a 
+significant rise, which may result in us having a higher gamer populati
+on then just 55%.
+
+This coupled with the fact that California is the the leading state in
+in concentration of videogame-jobs and accounts for 40% of the 
+industry's employment, its clear that the San Francisco Bay Arear has
+a tendency to have a higher concentration of gamers than the average 
+major US city. 
+
+Step 4: My Conclusion
+---------------------
+
+With all the points that I had brought up in mind, I would offer an
+educated guess that there are 4,500,000 gamers reside in the San 
+Francisco Bay area, having considered the above average wealth of the
+area, the rise of mobile gaming, and California's role as the center of
+the industry in the US. 
 
 
 
