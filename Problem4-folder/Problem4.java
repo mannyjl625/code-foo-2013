@@ -4,14 +4,14 @@ import java.io.*;
 
 /* For the family tree problem, I used a pre-built barebones family tree graph using Person objects
  * modeled after my own family tree for testing purposes of the search by name and generation algorithm.
- * I implemented a breadth first search on the graph to find all family members that matched the name and/or
+ * I implemented a dept first search on the graph to find all family members that matched the name and/or
  * generation specified by the user
  */
 
 
 
 /*Person object class used to represent family members in the family tree
- *Only implemented fields that  were neccesary for the breadth-first search
+ *Only implemented fields that  were neccesary for the depth-first search
  *For the purposes of this algorithm, son and daughter-in-laws are considered the same as natural children
  */
 
@@ -37,12 +37,10 @@ class Person{
 	}
 
 }
-/*Generic Queue class 
- *Used for the breadth-first search
+
+/*Generic Stack class used for depth first search
  */
-
-
-public class Stack<T> {
+class Stack<T> {
 
 	
 	private ArrayList<T> items;
@@ -88,62 +86,6 @@ public class Stack<T> {
 		items.clear();
 	}
 }
-class Queue<T> {
-	
-	class CLLNode<E> {
-		E data; CLLNode<E> next;
-		CLLNode(E data) { 
-		this.data = data; next = null;
-		}
-	}
-	
-	CLLNode<T> rear; 
-	int size;
-
-	public Queue() {
-		rear = null; size=0;
-	}
-
-	public void enqueue(T item) {
-		CLLNode<T> temp = new CLLNode<T>(item);
-		if (size == 0) {
-			temp.next = temp;
-		} else {
-			temp.next = rear.next;
-			rear.next = temp;
-		}
-		rear = temp;
-		size++;
-	}
-
-	public T dequeue() 
-	throws NoSuchElementException { 
-		if (size == 0) throw new NoSuchElementException();
-		T o = rear.next.data;
-		if (size == 1) {
-			rear = null; 
-		} else {
-			rear.next = rear.next.next;
-		}
-		size--;
-		return o;
-	}
-
-	public T peek() 
-	throws NoSuchElementException { 
-		if (size == 0) throw new NoSuchElementException();
-		return rear.next.data;
-	}
-
-	public boolean isEmpty(){
-		return size == 0;
-	}
-
-	public int size(){
-		return size;
-	}
-}
-
 public class Problem4{
 	public static void main(String[] args){
 		
@@ -273,34 +215,34 @@ public class Problem4{
 				System.out.println("");
 			}
 		}
-		
-		//beginning of breadth-first search on familiy tree
-		//traverses through all family members, storing those that match by name and/or generation in results arrayList
+
+		/*begining of depth first search with stack
+		if family member matches name and or generation depending on the menue option,
+		the person object will be added to the results ArrayList
+		*/
+		Stack<Person> s = new Stack<Person>();
 		ArrayList<Person> results = new ArrayList<Person>();
-		/*
-		Queue<Person> q = new Queue<Person>();
-		q.enqueue(root);
+		s.push(root);
 		root.visited = true;
-		while(!q.isEmpty()){
-			Person ancestor = q.dequeue();
-			if(option.equals("1") && ancestor.name.equals(name)){
-				results.add(ancestor);
-			}else if(option.equals("2") && ancestor.generation == genNum){
-				results.add(ancestor);
-			}else if(option.equals("3") && ancestor.name.equals(name) && ancestor.generation == genNum){
-				results.add(ancestor);
-			}
-
-			for(int i = 0; i<ancestor.children.size(); i++){
-				Person relative = ancestor.children.get(i);
-				if(!relative.visited){
-					relative.generation = ancestor.generation+1; //keeps track of the current generation as steps away from root
-					relative.visited = true;
-					q.enqueue(relative);
+		while(!s.isEmpty()){
+			Person ancestor = s.peek();
+			Person relative = getUnvisitedChild(ancestor);
+			if(relative!=null){
+				relative.generation = ancestor.generation+1;
+				relative.visited =true;
+				if(option.equals("1") && relative.name.equals(name)){
+					results.add(relative);
+				}else if(option.equals("2") && relative.generation == genNum){
+					results.add(relative);
+				}else if(option.equals("3") && relative.name.equals(name) && relative.generation == genNum){
+					results.add(relative);
 				}
-			}			
-		}*/
-
+				s.push(relative);
+			}else{
+				s.pop();
+			}
+		}
+		
 		//no familiy members found 
 		if(results.isEmpty()){
 			System.out.println("No results found in the family tree");
@@ -318,8 +260,17 @@ public class Problem4{
 				System.out.println("name: " + results.get(i).name  + " / genertaion: " +results.get(i).generation);
 			}
 		}
-
-
 	}
-
+	
+	/*Helper method that takes in a Person object and returns an unvisited child 
+	 *returns null if person has no childrend or if all children are already visited
+	 */
+	public static Person getUnvisitedChild(Person person){
+		for(int i = 0; i<person.children.size(); i++){
+			if(!person.children.get(i).visited){
+				return person.children.get(i);
+			}
+		}
+		return null;
+	}
 }
