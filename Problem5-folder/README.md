@@ -22,7 +22,7 @@ formated like the following;
 `````
 100 IGN
 200 Code Foo
-300 Mr. Awesome
+300 Mr. Slime
 ````
 
 
