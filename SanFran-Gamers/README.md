@@ -46,7 +46,7 @@ Under 5 years.......6.3%
 65 years+..........12.3%
 
 US stats
-http://quickfacts.census.gov/qfd/states/00000.html
+(http://quickfacts.census.gov/qfd/states/00000.html);
 
 Male...............49.2%
 
@@ -69,4 +69,15 @@ was $75,000 vs. $53,000 for the general US population. Being that
 videogames are considered a normal good, that is that an increase in
 income leads to an increase in demand for that product, we can assume
 the demand for games in the Bay Area to be higher than average, and
-as a result, more than the average amount of gamers.
+as a result, more than the average amount of gamers reside there.
+
+Step 3: Considering Unique Factors and Industry Trends
+------------------------------------------------------
+
+Keeping in mind that there may be more than the average number of 
+Bay Area gamers due to the above average household income. I 
+considered the areas unique role in the industry as well as changes 
+in the industry since the gamer survey was taken in 2009.
+
+
+
