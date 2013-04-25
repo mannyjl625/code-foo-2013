@@ -238,7 +238,8 @@ public class Problem3{
 					link.found = true;
 					q.enqueue(link);
 				}
-			}			
+			}
+			
 		}
 		System.out.println("No valid move path between " + start + " and " + end);  
 	}
