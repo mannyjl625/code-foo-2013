@@ -27,7 +27,8 @@ class ThreeLetterWord{
 		this.moves = new ArrayList<ThreeLetterWord>();
 	}
 }
-//generic Queue structure
+/*generic Queue class used for the breadth first search
+ */
 class Queue<T> {
 	
 	class CLLNode<E> {
@@ -191,28 +192,6 @@ public class Problem6{
 			}
 			currentWord.moves.trimToSize();
 		}
-		/*
-		Debuggin print statments
-		//prints all links
-		for(int i = 0; i < list.size(); i++){
-			ThreeLetterWord w = list.get(i);
-			for(int j = 0; j < w.moves.size(); j++){
-				//System.out.println(w.moves.get(j).word);
-			}	
-		}
-		//prints all moves for a certain word
-		ThreeLetterWord w = list.get(0);
-		System.out.println(w.word);
-		System.out.println("***************");
-		for(int j = 0; j < w.moves.size(); j++){
-			System.out.println(w.moves.get(j).word);
-		}
-		System.out.println("");
-		System.out.println("Start word: " + startWord.word);
-		System.out.println("end word: " + endWord.word);
-
-		*/
-
 		//Breadth first search starting at start word, looking for endword
 		//keeping track of moves from start and path of words taked
 		Queue<ThreeLetterWord> q = new Queue<ThreeLetterWord>();
@@ -243,22 +222,8 @@ public class Problem6{
 		}
 		System.out.println("No valid move path between " + start + " and " + end);  
 	}
-	/*
-	 *returns first one-move linked word from the arguement word that hasnt been visited
-	 *takes in ThreeLetterWord, returns first ThreeLetter word link
-	*/
-	public static ThreeLetterWord getUnvisitedWord(ThreeLetterWord word){
-		for(int i = 0; i<word.moves.size(); i++){
-			if(!word.moves.get(i).found){
-				return word.moves.get(i);
-			}
-		}
-		return null;
-
-
-	}
-	/*
-	 * copys words tranversed  history of word2 into word1 stepWords ArrayList
+	
+	 /* copys words tranversed  history of word2 into word1 stepWords ArrayList
 	*/
 	public static void copyHistory(ThreeLetterWord word1, ThreeLetterWord word2){
 		for(int i = 0 ; i<word2.stepWords.size(); i++){
