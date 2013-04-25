@@ -1,13 +1,17 @@
 Problem 4 README
 =================
 
-To complile program for running:
+To compile program for running:
 
+`````
 javac Problem4.java
+`````
 
 To run:
 
+`````
 java Problem4
+`````
 
 Summary
 -------
