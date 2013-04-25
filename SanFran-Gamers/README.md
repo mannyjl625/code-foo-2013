@@ -7,7 +7,7 @@ versus what percentage of the country
 are gamers, and used additional factors to refine my results.
 
 Step 1: The Gross estimation
-==
+----------------------------
 
 I first took the total US poplulation, about 304,000,000, as well as 
 the amount of gamers in the US according to NPD's 2009 Gamer 
@@ -19,6 +19,6 @@ the popluation of the San Francisco Bay Area, which is about
 
 
 Step 2: Considering the demographics of the Bay Area
-==
+----------------------------------------------------
 
 
