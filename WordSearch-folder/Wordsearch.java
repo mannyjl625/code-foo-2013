@@ -1,6 +1,15 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
+/*For this problem, I read in the wordsearch grid from the text file
+ * and passed in into an array, and then passed the words to be search
+ * in their own array.
+ *
+ * After the grid and words were stored, I iterated through the grid looking for 
+ * the words in the list in all 8 directions. When a word was found, I stored it in 
+ * a results arraylist to be displayed at the end of the program
+ */
+
 
 public class Wordsearch{
 	public static void main(String[] args) throws FileNotFoundException{
@@ -109,7 +118,12 @@ public class Wordsearch{
 		}
 		System.out.println("words found: " + foundWords + "/" +words.length);
 	}
+	
 
+	/*Helper methods that look in specific directions to find the word passed in,
+	 * starting at a specifed index in the wordsearch grid
+	 *
+	 */
 	public static boolean searchRight(int row, int column , String word, String[] grid){
 		String word2 = word;
 		word2  = word2.toLowerCase();
