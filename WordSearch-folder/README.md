@@ -18,7 +18,7 @@ Input
 -----
 
 For the wordsearch text file being passed in, the file must match the 
-sample 'wordsearch.txt' in terms of format
+sample 'wordsearch.txt' in terms of format, such as the format below:
 
 `````
 a	b	c
@@ -28,6 +28,5 @@ d	e	f
 g	h 	i
 
 Words to find:
-
 hi
 ```
