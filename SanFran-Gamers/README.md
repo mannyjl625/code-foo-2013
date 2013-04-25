@@ -6,7 +6,7 @@ Bay Area, I took a gross estimation of the Bay Area population
 versus what percentage of the country 
 are gamers, and used additional factors to refine my results.
 
-Step 1: The Gross estimation
+Step 1: The Gross Estimation
 ----------------------------
 
 I first took the total US poplulation, about 304,000,000, as well as 
@@ -21,4 +21,52 @@ the popluation of the San Francisco Bay Area, which is about
 Step 2: Considering the demographics of the Bay Area
 ----------------------------------------------------
 
+Though my estimation of 4,000,000 may make sense in terms of the 
+survey data, there are still many demographic factors to consider 
+when evaluating the difference of the Bay Area population vs. the 
+general population. Upon researching to sex and age demographics, the
+the Bay area have very close percentages as far as male to female 
+and breakdowns for age groups to the general US population, with 
+differences of no more than 3% for any of the age or sex groups. 
 
+San Francisco Bay Area stats
+(http://www.bayareacensus.ca.gov/bayarea.htm)
+
+Male...............49.6%
+
+Female.............50.4%
+
+
+Under 5 years.......6.3%
+
+5-17 years.........16.0%
+
+18-65 year.........65.5%
+
+65 years+..........12.3%
+
+US stats
+http://quickfacts.census.gov/qfd/states/00000.html
+
+Male...............49.2%
+
+Female.............50.8%
+
+
+Under 5 years.......6.5%
+
+5-17 years.........17.2%
+
+18-65 years..........63%
+
+65 year+...........13.3%
+
+With these figuerse in mind, we can safely say that the San Francisco
+Bay area represents the general population well in terms of sex and 
+age. Theres is, however, a significant gap in wealth between the two
+groups. As of 1999, the average household incomce for the Bay Area 
+was $75,000 vs $53,000 for the general US population. Being that 
+videogames are considered a normal good, that is that an increase in
+income leads to an increase in demand for that product, we can assume
+the demand for games in the Bay Area to be higher then average, and
+as a result, more the the average amount of gamers.
