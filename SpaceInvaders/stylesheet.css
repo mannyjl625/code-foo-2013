@@ -1,0 +1,19 @@
+
+*{
+    text-align:right;
+
+
+}
+body{
+    background-color:white;
+
+}
+h2{
+    color:lime;
+}
+canvas{
+    margin-top: 20px;
+    background-color:black;
+
+}
+
