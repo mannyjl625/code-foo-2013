@@ -89,21 +89,21 @@ public class Wordsearch{
 			found = false;
 			for(rows = 0; rows<grid.length; rows++){
 				for(columns = 0; columns<grid[0].length(); columns++){	
-					if(searchRight(rows, columns, words[wordIndex], grid)){
+					if(search(rows, columns, words[wordIndex], grid,"up")){
 						found = true;
-					}else if(searchLeft(rows, columns, words[wordIndex], grid)){
+					}else if(search(rows, columns, words[wordIndex], grid, "down")){
 						found = true;
-					}else if(searchUp(rows, columns, words[wordIndex], grid)){
+					}else if(search(rows, columns, words[wordIndex], grid, "left")){
 						found = true;
-					}else if(searchDown(rows, columns, words[wordIndex], grid)){
+					}else if(search(rows, columns, words[wordIndex], grid, "right")){
 						found = true;
-					}else if(searchUpRight(rows, columns, words[wordIndex], grid)){
+					}else if(search(rows, columns, words[wordIndex], grid, "upright")){
 						found = true;
-					}else if(searchDownRight(rows, columns, words[wordIndex], grid)){
+					}else if(search(rows, columns, words[wordIndex], grid, "upleft")){
 						found = true;
-					}else if(searchUpLeft(rows, columns, words[wordIndex], grid)){
+					}else if(search(rows, columns, words[wordIndex], grid, "downright")){
 						found = true;
-					}else if(searchDownLeft(rows, columns, words[wordIndex], grid)){
+					}else if(search(rows, columns, words[wordIndex], grid, "downleft")){
 						found = true;
 					}
 					if(found){
@@ -115,188 +115,53 @@ public class Wordsearch{
 					break;
 				}
 			}
+			if(!found){
+				System.out.println(words[wordIndex]+ " is not in the wordsearch");
+			}
 		}
 		System.out.println("words found: " + foundWords + "/" +words.length);
 	}
 	
 
-	/*Helper methods that look in specific directions to find the word passed in,
+	/*Helper method that looks in specific directions to find the word passed in,
 	 * starting at a specifed index in the wordsearch grid
 	 *
 	 */
-	public static boolean searchRight(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			j++;	//moves right
-			nthLetter++; //how far the search can go
+	public static boolean search(int row, int column , String word, String[] grid, String direction){
+		int directionX = 0;
+		int directionY = 0;
+		//based on input direction, lets counter modifier to travel in corresponding direction
+		if(direction.contains("right")){
+			directionX = 1;
+		}else if(direction.contains("left")){
+			directionX = -1;
 		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going right");
-			return true;
-		}
-		return false;
 
-	}
-	public static boolean searchLeft(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			j--;	//moves left
-			nthLetter++; //how far the search can go
+		if(direction.contains("up")){
+			directionY = -1;
+		}else if(direction.contains("down")){
+			directionY = 1;
 		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going left");
-			return true;
-		}
-		return false;
-	}
-	public static boolean searchUp(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			i--;	//moves up
-			nthLetter++; //how far the search can go
-		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going up");
-			return true;
-		}
-		return false;
-	}
-	public static boolean searchDown(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			i++;	//moves down
-			nthLetter++; //how far the search can go
-		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going down");
-			return true;
-		}
-		return false;
-	}
-	public static boolean searchUpRight(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			i--;	//moves up
-			j++; //moves right
-			nthLetter++; //how far the search can go
-		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going upright");
-			return true;
-		}
-		return false;
-	}
-	public static boolean searchDownRight(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			i++;	//moves down
-			j++; //moves right
-			nthLetter++; //how far the search can go
-		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going downright");
-			return true;
-		}
-		return false;
-	}
-	public static boolean searchUpLeft(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			i--;	//moves up
-			j--; //moves left
-			nthLetter++; //how far the search can go
-		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going upleft");
-			return true;
-		}
-		return false;
-	}
-	public static boolean searchDownLeft(int row, int column , String word, String[] grid){
-		String word2 = word;
-		word2  = word2.toLowerCase();
-		word2 = word2.replaceAll("\\W", "");
-		word2 = word2.trim();
-		int i = row;
-		int j = column;
-		String testWord = "";
-		int nthLetter = 0;
-		//conditions to stay within grid limits and only go as far as the length of word
-		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
-			testWord = testWord + grid[i].charAt(j);
-			i++;	//moves down
-			j--; //moves left
-			nthLetter++; //how far the search can go
-		}
-		if(word2.equals(testWord)){
-			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going downleft");
-			return true;
-		}
-		return false;
-	}
 
-
+		String word2 = word;
+		word2  = word2.toLowerCase();
+		word2 = word2.replaceAll("\\W", "");
+		word2 = word2.trim();
+		int i = row;
+		int j = column;
+		String testWord = "";
+		int nthLetter = 0;
+		//conditions to stay within grid limits and only go as far as the length of word
+		while(i>=0 && i<grid.length && j>=0 && j<grid[0].length() && nthLetter<word2.length()){
+			testWord = testWord + grid[i].charAt(j);
+			i = i + directionY;
+			j = j + directionX;	//moves left
+			nthLetter++; //how far the search can go
+		}
+		if(word2.equals(testWord)){
+			System.out.println("Found \"" + word + "\" starting at (row, coloumn) ("+row+", "+column+") going " + direction);
+			return true;
+		}
+		return false;
+	}
 }
