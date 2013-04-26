@@ -84,8 +84,7 @@ explosive rise of mobile gaming. While hard numbers on how much
 mobile gaming has grown since 2009 are hard to come by, super
 populate mobile games such as the angyr birds series and cut the rope 
 indicate that the amount of people playing mobile games is on a 
-significant rise, which may result in us having a higher gamer populati
-on then just 55%.
+significant rise, which may result in us having a higher gamer population then just 55%.
 
 This coupled with the fact that California is the the leading state in
 in concentration of videogame-jobs and accounts for 40% of the 
