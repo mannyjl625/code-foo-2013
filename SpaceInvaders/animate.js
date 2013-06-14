@@ -14,7 +14,10 @@ function ship(){
     this.x2 = this.x+this.width;
     this.y2 = this.y+this.height;
 
+
+
     this.canFire = true;
+
 
     this.draw = function(){
         ctx.fillStyle= "red";
@@ -25,54 +28,74 @@ function ship(){
     this.update = function(){
         if(Key.isDown(Key.LEFT)) this.moveLeft();
         if(Key.isDown(Key.RIGHT)) this.moveRight();
-        
-        if(Key.isPressed(
         this.draw();
     };
 
     this.moveLeft = function(){
-        if(this.x>0){
+        console.log("moving left");
+		if(this.x>0){
             this.x = this.x-3.2;
             this.x2 = this.x2-3.2;
         }
-    };
-
+	}
     this.moveRight = function(){
-        if(this.x2<400){
+        if(this.x2<canvasW){
             this.x = this.x+3.2;
             this.x2 = this.x2+3.2;
         }
     };
 
     this.fire = function(){
-        laser shot = new laser();
-        setTimeout(function(){
-            this.canFire = true;;
 
-        }, 3000);
-
+        console.log("fire");
     };
+
+    this.checkFire = function(){
+
+    }
+
 }
 
-function laser(){
+function shipLaser(){
     
-    this.width = 2;
-    this.height = height;
+    this.width = 5;
+    this.height = 15;
 
-    this.x = player1.x+10;
+    this.x = player1.x+7;
     this.y = player1.y;
-    
+    this.velocity = 0;
+
+    this.alive = true;
     
 
-    this.move = function(){
-        this.y = this.y+3;      
+    this.update = function(){
+       this.move();
+       this.reset();
+       this.draw();
+       //console.log("drawing");
+       
     };
+    this.move = function(){
+        this.y = this.y+this.velocity;
+        if(this.y ==player1.y){
+            this.x = player1.x+ 7;
+        }
+    };
+
+    this.reset = function(){
+        if(this.y<0){
+            this.x = player1.x+7;
+            this.y = player1.y;
+            this.velocity = 0;
+        }
+    }
+    this.draw = function(){
+        ctx.fillStyle = "green";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    };
+
     
-     
-
-
 }
-
 var Key = {
     //array that keeps track of key presses
     _pressed: {},
@@ -102,20 +125,24 @@ var Key = {
             this._pressed[event.which] = true;
         }
     },
-    //returs if key is pressed down
+    //returns if key is pressed down
     isPressed: function(keyCode){
         return this._pressed[keyCode];
     }
 };
 
 var player1  = new ship();
+var shot = new shipLaser();
 
 setInterval(function(){
 
     ctx.clearRect(0, 0, canvasW, canvasH);
+    shot.update();
     player1.update();
 
 }, 25);
+
 window.addEventListener('keypress', function(event) {Key.onKeypress(event); }, false); 
 window.addEventListener('keyup', function(event) {Key.onKeyup(event); }, false);
 window.addEventListener('keydown', function(event) {Key.onKeydown(event); }, false);
+
