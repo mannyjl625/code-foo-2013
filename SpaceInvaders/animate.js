@@ -13,12 +13,7 @@ function ship(){
     //bottom right corner
     this.x2 = this.x+this.width;
     this.y2 = this.y+this.height;
-
-
-
-    this.canFire = true;
-
-
+	this.canFire = true;
     this.draw = function(){
         ctx.fillStyle= "red";
         ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -28,11 +23,12 @@ function ship(){
     this.update = function(){
         if(Key.isDown(Key.LEFT)) this.moveLeft();
         if(Key.isDown(Key.RIGHT)) this.moveRight();
+		this.checkFire();
         this.draw();
     };
 
     this.moveLeft = function(){
-        console.log("moving left");
+        //console.log("moving left");
 		if(this.x>0){
             this.x = this.x-3.2;
             this.x2 = this.x2-3.2;
@@ -46,13 +42,18 @@ function ship(){
     };
 
     this.fire = function(){
-
-        console.log("fire");
+        shot.velocity = -7;
+		console.log("fire");
     };
 
     this.checkFire = function(){
-
-    }
+    	if(!Key.isDown(Key.F)){
+			this.canFire = true;
+		}else if(Key.isDown(Key.F) && shot.y == this.y && this.canFire){
+			this.canFire = false
+			this.fire();
+		}
+	}
 
 }
 
@@ -77,7 +78,7 @@ function shipLaser(){
     };
     this.move = function(){
         this.y = this.y+this.velocity;
-        if(this.y ==player1.y){
+        if(this.y == player1.y){
             this.x = player1.x+ 7;
         }
     };
@@ -137,8 +138,9 @@ var shot = new shipLaser();
 setInterval(function(){
 
     ctx.clearRect(0, 0, canvasW, canvasH);
-    shot.update();
+    //shot.update();
     player1.update();
+    shot.update();
 
 }, 25);
 
