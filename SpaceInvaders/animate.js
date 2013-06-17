@@ -4,18 +4,18 @@ var canvasW = 400;
 var canvas = document.getElementById('screen');
 var ctx = canvas.getContext('2d');
 
-//var single = AudioFX('sounds/single', { formats: ['ogg','mp3','m4a'], volume: 0.1});
-var single = AudioFX('sounds/boom.ogg'); //ogg sound files supported in firefox
-function ship(){
+var single = AudioFX('sounds/laser.ogg'); //ogg sound files supported in firefox
+function ship(x, y){
     this.width = 20;
     this.height = 20;
     //top left corner
-    this.x = 280;
-    this.y = 470;
+    this.x = x;
+    this.y = y;
     //bottom right corner
     this.x2 = this.x+this.width;
     this.y2 = this.y+this.height;
 	this.canFire = true;
+	this.alive = true;
     this.draw = function(){
         ctx.fillStyle= "red";
         ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -23,9 +23,13 @@ function ship(){
     this.draw();
 
     this.update = function(){
-        if(Key.isDown(Key.LEFT)) this.moveLeft();
-        if(Key.isDown(Key.RIGHT)) this.moveRight();
-		this.checkFire();
+		if(this.y == 470){
+			if(Key.isDown(Key.LEFT)) this.moveLeft();
+			if(Key.isDown(Key.RIGHT)) this.moveRight();
+			this.checkFire();
+		}else{
+			this.collide(shot);
+		}
         this.draw();
     };
 
@@ -57,6 +61,14 @@ function ship(){
 			this.fire();
 		}
 	}
+	
+	this.collide = function(laser){
+		if(laser.x >= this.x && laser.x <= this.x2 && laser.y >= this.y  && laser.y <= this.y2){
+			console.log("collide1");
+		}else if(laser.x2 >= this.x && laser.x2 <= this.x2 && laser.y >= this.y  && laser.y <= this.y2){
+			console.log("collide2");
+		}
+	}
 
 }
 
@@ -64,9 +76,13 @@ function shipLaser(ship){
     this.ship = ship;
     this.width = 5;
     this.height = 15;
+	//top left corner
+    this.x = this.ship.x+7;
+	this.y = this.ship.y;
+	//bottom right corner
+	this.x2 = this.x+this.width;
+	this.y2 = this.y+this.height;
 
-    this.x = player1.x+7;
-    this.y = player1.y;
     this.velocity = 0;
 
     this.alive = true;
@@ -81,6 +97,7 @@ function shipLaser(ship){
     };
     this.move = function(){
         this.y = this.y+this.velocity;
+		this.y2 = this.y+this.height;
         /*
 		if(this.y == player1.y){
             this.x = player1.x+ 7;
@@ -88,30 +105,26 @@ function shipLaser(ship){
 		*/
 		if(this.y == this.ship.y){
 			this.x = this.ship.x+7;
+			this.x2 = this.x+this.width;
 		}
     };
 
     this.reset = function(){
-        /*
-		if(this.y<0 || this.y >500){
-            this.x = player1.x+7;
-            this.y = player1.y;
-            this.velocity = 0;
-        }
-		*/
 		if(this.y<0 || this.y > 500){
 			this.x = this.ship.x+7;
+			this.x2 = this.x + this.width;
 			this.y = this.ship.y;
+			this.y2 = this.y + this.height;
 			this.velocity = 0;
 		}
     }
     this.draw = function(){
         ctx.fillStyle = "green";
         ctx.fillRect(this.x, this.y, this.width, this.height);
-    };
-
-    
+    }; 
 }
+
+
 var Key = {
     //array that keeps track of key presses
     _pressed: {},
@@ -147,14 +160,15 @@ var Key = {
     }
 };
 
-var player1  = new ship();
+var player1  = new ship(280, 470);
+var alien1 = new ship(280, 200);
 var shot = new shipLaser(player1);
 
 setInterval(function(){
 
     ctx.clearRect(0, 0, canvasW, canvasH);
-    //shot.update();
     player1.update();
+	alien1.update();
     shot.update();
 
 }, 25);
