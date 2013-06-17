@@ -4,6 +4,8 @@ var canvasW = 400;
 var canvas = document.getElementById('screen');
 var ctx = canvas.getContext('2d');
 
+//var single = AudioFX('sounds/single', { formats: ['ogg','mp3','m4a'], volume: 0.1});
+var single = AudioFX('sounds/boom.ogg'); //ogg sound files supported in firefox
 function ship(){
     this.width = 20;
     this.height = 20;
@@ -43,6 +45,7 @@ function ship(){
 
     this.fire = function(){
         shot.velocity = -7;
+		single.play();
 		console.log("fire");
     };
 
