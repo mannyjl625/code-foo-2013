@@ -60,8 +60,8 @@ function ship(){
 
 }
 
-function shipLaser(){
-    
+function shipLaser(ship){
+    this.ship = ship;
     this.width = 5;
     this.height = 15;
 
@@ -81,17 +81,29 @@ function shipLaser(){
     };
     this.move = function(){
         this.y = this.y+this.velocity;
-        if(this.y == player1.y){
+        /*
+		if(this.y == player1.y){
             this.x = player1.x+ 7;
         }
+		*/
+		if(this.y == this.ship.y){
+			this.x = this.ship.x+7;
+		}
     };
 
     this.reset = function(){
-        if(this.y<0){
+        /*
+		if(this.y<0 || this.y >500){
             this.x = player1.x+7;
             this.y = player1.y;
             this.velocity = 0;
         }
+		*/
+		if(this.y<0 || this.y > 500){
+			this.x = this.ship.x+7;
+			this.y = this.ship.y;
+			this.velocity = 0;
+		}
     }
     this.draw = function(){
         ctx.fillStyle = "green";
@@ -136,7 +148,7 @@ var Key = {
 };
 
 var player1  = new ship();
-var shot = new shipLaser();
+var shot = new shipLaser(player1);
 
 setInterval(function(){
 
