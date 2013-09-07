@@ -8,12 +8,15 @@ var single = AudioFX('sounds/laser.ogg'); //ogg sound files supported in firefox
 function ship(x, y){
     this.width = 20;
     this.height = 20;
-    //top left corner
+    
+	//top left corner
     this.x = x;
     this.y = y;
-    //bottom right corner
+    
+	//bottom right corner
     this.x2 = this.x+this.width;
     this.y2 = this.y+this.height;
+	
 	this.canFire = true;
 	this.alive = true;
     this.draw = function(){
